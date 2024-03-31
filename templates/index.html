@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9e6e6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        textarea {
+            width: 92%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .result p {
+            margin: 5px 0;
+            font-size: 10px;
+        }
+
+        .result p.sentiment {
+            font-size: 22px; 
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>IMDB Review Sentiment Analysis</h1>
+        <p>Enter a review, sentence, or short paragraph and discover its sentiment.</p>
+        <form action="{{ url_for('predict') }}" method="post">
+            <textarea name="text" rows="4" cols="50" placeholder="Enter your text here"> {{ text }}</textarea>
+            <button type="submit">Analyze</button>
+        </form>
+        {% if result %}
+            <div class="result">
+                <p class="sentiment">Sentiment: {{ result }}</p>
+                <p>Accuracy: {{ accuracy }}</p>
+                <p>Precision (Positive): {{ precisionPos }}</p>
+                <p>Precision (Negative): {{ precisionNeg }}</p>
+                <p>Recall (Positive): {{ recallPos }}</p>
+                <p>Recall (Negative): {{ recallNeg }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
